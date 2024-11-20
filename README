@@ -1,0 +1,12 @@
+Here I provide a brief background on spin modelling and some context to the code outlined in Spin_modelling_example.
+
+In the example, I make use of a Monte Carlo algorithm to sample magnetic structures from a very large phase space. 
+As with most MC implementations, the phase space of spin configurations is difficult to sample from directly, so the MC algorithm
+works by proposing a spin flip and then directly calculating the resulting energy change due to the update. By iterating this multiple times
+over each spin in the lattice, we can find an approximate ground state configuration.
+
+The code in Spin_modelling_example is similar to one constructed to provide a microscopic understanding of S=7/2 Europium moments in Eu5Sn2As6.
+The software takes in a crystallographic information file (.cif) and constructs a lattice based on a few parameters pertaining to spin magnitude 
+and system size. The code sets interactions based on bond lengths and uses a MC algorithm to find the lowest energy state for a given 
+external field and temperature. This process is iteratively completed for different field and temperature points to provide data to match to
+measurements like magnetic hysteresis, magnetic susceptibility, and specific magnetic structures for low-energy states.
