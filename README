@@ -1,12 +1,23 @@
-Here I provide a brief background on spin modelling and some context to the code outlined in Spin_modelling_example.
+Welcome to my public github! Many of the projects I work on have code I cannot share at the moment pending research results, 
+but I have included two examples here of the major projects I have worked on.
 
-In the example, I make use of a Monte Carlo algorithm to sample magnetic structures from a very large phase space. 
-As with most MC implementations, the phase space of spin configurations is difficult to sample from directly, so the MC algorithm
-works by proposing a spin flip and then directly calculating the resulting energy change due to the update. By iterating this multiple times
-over each spin in the lattice, we can find an approximate ground state configuration.
+First is Spin_modelling_example, which is a very old version of the working notebook I wrote for my simulation projects with Eu5Sn2As6. 
+It uses a model of magnetic exchange in Eu chalcogens introduced by T. Kasuya in 1970. This leads to two major ordering mechanisms; 
+1. A ferromagnetic indirect exchange mediated by Eu-5d-mediated onsite hopping and 2. A distance-dependent FM/AFM superexchange mediated by 
+As-3p orbitals in Eu5Sn2As6. My code models this by calculating the distance-dependent strength at each bond under a certain critical distance,
+and then uses the gradient-descent minimize_energy! method from the SU(N)NY software to find a magnetic ground state, and then print it.
 
-The code in Spin_modelling_example is similar to one constructed to provide a microscopic understanding of S=7/2 Europium moments in Eu5Sn2As6.
-The software takes in a crystallographic information file (.cif) and constructs a lattice based on a few parameters pertaining to spin magnitude 
-and system size. The code sets interactions based on bond lengths and uses a MC algorithm to find the lowest energy state for a given 
-external field and temperature. This process is iteratively completed for different field and temperature points to provide data to match to
-measurements like magnetic hysteresis, magnetic susceptibility, and specific magnetic structures for low-energy states.
+Second is some of the code used in my 2-qubit gate in integer GF fluxonium project. This notebook simulates a parametric iSWAP gate between 
+two fluxonium qubits using an explicit SQUID-loop transmon as a third quantum degree of freedom in the Hilbert space, rather than treating 
+the coupler as a classical control line. The two fluxonium qubits share slightly different g–f transition frequencies (~100 MHz detuning), 
+and both are biased slightly off the integer-flux symmetry point so that the charge matrix element ⟨g|n̂|f⟩ is nonzero. A small AC flux tone 
+at the difference frequency Δω_gf = ω_gf^(A) − ω_gf^(B) is threaded through the coupler's SQUID loop, periodically modulating its Josephson 
+energy and thereby modulating the dispersive qubit–qubit coupling it mediates; when this modulation is resonant with the energy splitting 
+between |gf⟩ and |fg⟩, it drives coherent population exchange in the g–f computational subspace. The simulation builds the full 
+64-dimensional Hilbert space (4 qubit-A levels × 4 qubit-B levels × 4 coupler levels), diagonalizes the static Hamiltonian 
+to identify dressed computational states via maximum-overlap with bare product states, computes the modulation operator 
+∂H/∂Φ_c projected into the coupler eigenbasis, and integrates the time-dependent Schrödinger equation with qt.propagator; 
+the resulting unitary is then projected onto the four-state computational subspace, single-qubit Z phases are analytically corrected, 
+and the Z-corrected fidelity against the ideal iSWAP is returned alongside peak leakage into |ee⟩ and coupler-excited states.
+
+
